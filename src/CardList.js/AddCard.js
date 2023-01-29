@@ -1,13 +1,15 @@
+
+
 function AddCard () {
 
-const [deck, setDeck] = useState([]) // 1/28 empty array for now, but initial value is actually deck data from api call.
+//const [deck, setDeck] = useState({}) // 1/28 empty array for now, but initial value is actually deck data from api call.
 
-const initialFormState = {
-     id: "",
-     front: "",
-     back: "",
-     deckId: ""
-}
+// const initialFormState = {
+//      id: "",
+//      front: "",
+//      back: "",
+//      deckId: ""
+// }
 
 const changeHandler = () => {
 ///bracket notation to access keys to add input values to initialFormState
@@ -25,10 +27,10 @@ const submitHandler = () => {
             <label>Front</label>
             <textarea type="text" name="front" placeholder="Front side of card" onChange={changeHandler}></textarea> 
             <label>Back</label>
-            <textarea type="text" name="back" placeholder="Back side of card" onChange={change}></textarea>
+            <textarea type="text" name="back" placeholder="Back side of card" onChange={changeHandler}></textarea>
         </div>
         <div>
-            <button onClick={()=>{<Deck/>}}>Done</button>
+            <button>Done</button>
             <button type={submitHandler}>Save</button>
         </div>
     </form>

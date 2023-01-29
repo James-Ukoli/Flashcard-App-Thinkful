@@ -1,19 +1,31 @@
-import {useState} from "react-router-dom";
+import React, {useState} from "react";
+import { useHistory } from "react-router-dom";
+import { createDeck } from "../utils/api";
 
 function CreateDeck () {
+    const history = useHistory();
     const initialFormState = {
         name: "",
         description: "",
     }
 
-const [formData, setFormData] = useState(initialFormState)
+const [formData, setFormData] = useState({...initialFormState})
 
-    const changeHandler = (event) => {
+    const changeHandler = ({target}) => {
+    setFormData({
+        ...formData,
+    [target.name]: target.value
+    })
         // bracket notation 
     }
 
-    const submitHandler = () => {
+    const submitHandler = (event) => {
+    event.preventDefault();
         // clear
+    const additionalDecks = createDeck(formData)
+    history.push(`/decks/${additionalDecks.id}`)
+    setFormData({...initialFormState})
+
     }
 
 
