@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
-import { createDeck } from "../utils/api";
+import { createDeck, } from "../utils/api";
 
 function CreateDeck () {
     const history = useHistory();
@@ -22,10 +22,25 @@ const [formData, setFormData] = useState({...initialFormState})
     const submitHandler = (event) => {
     event.preventDefault();
         // clear
-    const additionalDecks = createDeck(formData)
-    history.push(`/decks/${additionalDecks.id}`)
+    async function updateData () {
+        try {
+            const additionalDecks = await createDeck(formData)
+            history.push(`/decks/${additionalDecks.id}`)
+            setFormData({...initialFormState})
+        } catch (error) {
+            if (error.name === "AbortError") {
+                console.log("Aborted")
+            } else {
+                throw error
+            }
+        }
+    }
+    updateData();
+    }
+    
+ const cancelHandler = (event) => {
+    event.preventDefault();
     setFormData({...initialFormState})
-
     }
 
 
@@ -35,13 +50,16 @@ const [formData, setFormData] = useState({...initialFormState})
     <form onSubmit={submitHandler}>
         <div>
             <label>Name</label>
+            <br/>
             <input type="name" name="name" onChange={changeHandler} placeholder="Deck Name" value={formData.name}></input>
+            <br/>
+            <br/>
             <label>Description</label>
-            <textarea type="text" name="description" onChange={changeHandler} placeholder="Bried description of the deck" value={formData.description}></textarea>
-        </div>
-        <div>
-            <button>Cancel</button>
-            <button type="submit">Submit</button>
+            <br/>
+            <textarea type="text" name="description" onChange={changeHandler} placeholder="Brief description of the deck" value={formData.description}></textarea>
+            <br/>
+            <button className="btn btn-primary" onClick={cancelHandler}>Cancel</button>
+            <button className="btn btn-secondary" type="submit">Submit</button>
         </div>
     </form>
         </>

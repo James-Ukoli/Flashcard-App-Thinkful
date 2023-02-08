@@ -5,8 +5,8 @@ import ListDecks from "../Decks/ListDecks";
 function Home() {
 return (
 <>
-    <Link to="/decks/new">+ Create Deck</Link>
-    <ListDecks/>
+    <Link to="/decks/new" className="btn btn-secondary">+ Create Deck</Link>
+    <ListDecks />
 </>
     )
 }
