@@ -74,6 +74,11 @@ export async function listDecks(signal) {
   return await fetchJson(url, { signal }, []);
 }
 
+export async function listCards(deckId, signal) {
+  const url = `${API_BASE_URL}/cards?deckId=${deckId}`;
+  return await fetchJson(url, { signal });
+}
+
 /**
  * Saves deck to the database (public/data/db.json).
  * There is no validation done on the deck object, any object will be saved.

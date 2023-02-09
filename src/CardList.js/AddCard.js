@@ -1,24 +1,25 @@
 import { Link, useParams } from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import { readDeck } from "../utils/api";
+import { createCard, readDeck } from "../utils/api";
 
 function AddCard () {
 const params = useParams()
+const [deck, setDeck] = useState([]); // 1/28 empty array for now, but initial value is actually deck data from api call.
 const deckId = params.deckId
-    //const [deck, setDeck] ()= useState({}) // 1/28 empty array for now, but initial value is actually deck data from api call.
+
     
 const initialFormState = {
         front: "",
         back: "",
-        deckId: ""
+        deckId
     }
-    
+// let formData = initialFormState
 const [formData, setFormData] = useState({...initialFormState})
 
 const changeHandler = ({target}) => {
 const value = target.value
 setFormData({
-    ...initialFormState,
+    ...formData,
     [target.name]: value, /// updating the intial form state key with new input valyes
 })
 
@@ -28,39 +29,73 @@ setFormData({
 useEffect(()=>{
     async function loadData () {
         try {
-        console.log(readDeck(deckId))
-           
+        const response = await readDeck(deckId)
+        setDeck(response)
         } catch (error) {
-            
+            if (error.name === "AbortError") {
+                console.log("Aborted")
+            } else {
+                throw error;
+            }
         }
     }
     loadData()
 },[deckId])
 
-const submitHandler = () => {
-//clear inputs
-setFormData({...initialFormState})
+
+
+const submitHandler = async (event) => {
+event.preventDefault();
+
+    const abortcontroller = new AbortController();
+    try {
+        const response = await createCard(deckId, {...formData}, abortcontroller.signal) //add card as second argument
+        console.log("Response is", response)
+        setFormData({...initialFormState})
+    } catch (error) {
+        if (error.name === "AbortError") {
+            console.log("Aborted")
+        } else {
+            throw error;
+        }
+    }
+ return () => {
+ abortcontroller.abort();
+ }
+
 }
 
+if (deck) {
     return (
-        <>
-        <h2>React Router: Add Card</h2>
-    <form>
+        <div>
+             <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item" key="0"><Link to="/">Home</Link></li>
+                        <li className="breadcrumb-item" key="1"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page" key="2">Add Card</li>
+                    </ol>
+                </nav>
+                <br />
+        <h2>{deck.name}: Add Card</h2>
+    <form onSubmit={submitHandler}>
         <div>
             <label>Front</label>
             <br/>
-            <textarea type="text" name="front" placeholder="Front side of card" onChange={changeHandler} value={formData.front}></textarea> 
+            <textarea name="front" placeholder="Front side of card" onChange={changeHandler} value={formData.front}></textarea> 
             <br/>
             <label>Back</label>
             <br/>
-            <textarea type="text" name="back" placeholder="Back side of card" onChange={changeHandler} value={formData.back}></textarea>
+            <textarea name="back" placeholder="Back side of card" onChange={changeHandler} value={formData.back}></textarea>
             <br/>
-            <Link to="">Done</Link>
-            <button type={submitHandler}>Save</button>
+            <Link to={`/decks/${deckId}`} className="btn btn-secondary">Done</Link> &nbsp;
+            <button type="submit" className="btn btn-primary">Save</button>
         </div>
     </form>
-        </>
+        </div>
     )
+} else {
+    return "Loading..."
+}
 }
 
 export default AddCard;

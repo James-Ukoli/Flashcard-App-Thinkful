@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
-import {readDeck, deleteDeck} from "../utils/api/index"
+import {readDeck, deleteDeck, deleteCard, listCards} from "../utils/api/index"
 
 
 function Deck() {
@@ -28,7 +28,26 @@ loadData();
 
 }, [deckId])
 
-const handleCardDelete = () => {
+const handleCardDelete = async ({target}) => {
+const value = target.value
+
+const result = window.confirm(`Delete card ID ${value}? You will not be able to recover it.`);
+if (result) {
+    async function deleteData () {
+        try {
+            await deleteCard(value)
+            const data2 = await listCards(deckId)
+            setDeck(data2)
+        } catch (error) {
+            if (error.name ==="AbortError") {
+                console.log("Aborted")
+            } else {
+                throw error;
+            }
+        }
+    }
+    deleteData();
+}
     
 }
 
@@ -58,8 +77,8 @@ return (
         <p>{deck.description}</p>
         <div className="row justify-content-between">
             <div className="col-8">
-                <Link to="" className="btn btn-secondary">Edit</Link>
-                <Link to="" className="btn btn-primary">Study</Link>
+                <Link to={`/decks/${deckId}/edit`} className="btn btn-secondary">Edit</Link> &nbsp;
+                <Link to={`/decks/${deckId}/study`} className="btn btn-primary">Study</Link> &nbsp;
                 <Link to={`/decks/${deckId}/cards/new`} className="btn btn-primary">Add Cards</Link>
             </div>
             <button onClick={handleDeckDelete}className="btn btn-danger">Delete</button>
@@ -69,7 +88,7 @@ return (
         <div>
             {cards.map((card)=>{
                 return (
-<div className="card">                
+<div className="card" key={card.id}>                
                 <div className="card-body">
                     <div className="container">
                         <div className="row justify-content-start">
