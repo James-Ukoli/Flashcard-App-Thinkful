@@ -45,7 +45,7 @@ const [formData, setFormData] = useState({...initialFormState})
 
 
     return (
-        <>
+        <div>
         <h1>Create Deck</h1>
     <form onSubmit={submitHandler}>
         <div>
@@ -62,7 +62,7 @@ const [formData, setFormData] = useState({...initialFormState})
             <button className="btn btn-secondary" type="submit">Submit</button>
         </div>
     </form>
-        </>
+        </div>
     )
 }
 

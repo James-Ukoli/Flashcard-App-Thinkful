@@ -57,7 +57,6 @@ if (cards.length > 2){
     console.log(cards[0].front);
     return (
         <div>
-            
             <h2>Study: {deck.name}</h2>
             <div className="card">
                 <div className="card-body">

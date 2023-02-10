@@ -12,7 +12,7 @@ import EditDeck from "../Decks/EditDeck";
 
 function Layout() {
   return (
-    <>
+    <div>
       <Header />
       <div className="container">
         {/* TODO: Implement the screen starting here */}
@@ -43,7 +43,7 @@ function Layout() {
           </Route>
         </Switch>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -55,7 +55,7 @@ function EditDeck(){
       updateData();    
       };
     return (
-        <>
+        <div>
         <h1>Edit Deck</h1>
     <form onSubmit={handleSubmit}>
         <div>
@@ -73,7 +73,7 @@ function EditDeck(){
             <button className="btn btn-primary"type="submit">Submit</button>
         </div>
     </form>
-        </>
+        </div>
     )
 }
 

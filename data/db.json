@@ -9,6 +9,11 @@
       "name": "new name",
       "description": "new description",
       "id": 2
+    },
+    {
+      "name": "Link Components",
+      "description": "lInk Component is when the browser paths take you to a new or an additional part of the page",
+      "id": 3
     }
   ],
   "cards": [
@@ -48,6 +53,12 @@
       "back": "b",
       "deckId": 1,
       "id": 7
+    },
+    {
+      "front": "card 1 for link components",
+      "back": "card 1.back for link components",
+      "deckId": 3,
+      "id": 8
     }
   ]
 }

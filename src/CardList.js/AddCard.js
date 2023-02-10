@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import { createCard, readDeck } from "../utils/api";
+import CardForm from "./CardForm";
 
 function AddCard () {
 const params = useParams()
@@ -78,18 +79,9 @@ if (deck) {
                 <br />
         <h2>{deck.name}: Add Card</h2>
     <form onSubmit={submitHandler}>
-        <div>
-            <label>Front</label>
-            <br/>
-            <textarea name="front" placeholder="Front side of card" onChange={changeHandler} value={formData.front}></textarea> 
-            <br/>
-            <label>Back</label>
-            <br/>
-            <textarea name="back" placeholder="Back side of card" onChange={changeHandler} value={formData.back}></textarea>
-            <br/>
+            <CardForm changeHandler={changeHandler} formData={formData}/>
             <Link to={`/decks/${deckId}`} className="btn btn-secondary">Done</Link> &nbsp;
             <button type="submit" className="btn btn-primary">Save</button>
-        </div>
     </form>
         </div>
     )

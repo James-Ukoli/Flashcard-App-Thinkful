@@ -50,7 +50,7 @@ const deleteHandler = async ({ target }) => {
 
 
     return (
-    <>
+    <div>
     <hr></hr>
     <div>
         {decks.map((deck)=>{
@@ -75,7 +75,7 @@ const deleteHandler = async ({ target }) => {
         </div>
         })}
     </div>
-    </>
+    </div>
     )
 }
 

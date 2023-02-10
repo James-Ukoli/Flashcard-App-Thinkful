@@ -4,10 +4,10 @@ import ListDecks from "../Decks/ListDecks";
 
 function Home() {
 return (
-<>
+<div>
     <Link to="/decks/new" className="btn btn-secondary">+ Create Deck</Link>
     <ListDecks />
-</>
+</div>
     )
 }
 

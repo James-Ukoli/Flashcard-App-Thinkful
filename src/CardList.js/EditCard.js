@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import {readDeck, readCard, updateCard} from "../utils/api/index"
+import CardForm from "./CardForm";
 
 function EditCard(){
     const params = useParams();
@@ -29,7 +30,7 @@ function EditCard(){
     }, [deckId, cardId]);
 
 
-    const handleChange = ({ target }) => {
+    const changeHandler = ({ target }) => {
         const value = target.value;
        setCard({
        ...card,
@@ -56,27 +57,18 @@ function EditCard(){
       }
       updateData(); 
       };
-    if (deck) {
 
+
+    if (deck) {
         return (
-            <>
+            <div>
         <h1>Edit Card</h1>
     <form onSubmit={handleSubmit}>
-        <div>
-            <label>Front</label>
-            <br></br>
-            <textarea type="text" name="front" placeholder="What path will match the follow Route?" onChange={handleChange}></textarea>
-            <br></br>
-            <label>Back</label>
-            <br></br>
-            <textarea type="text" name="back" placeholder="All paths. A route with no path matches all URL's" onChange={handleChange}></textarea>
-        </div>
-        <div>
+           <CardForm changeHandler={changeHandler} formData={card}/>
             <Link to={`/decks/${deckId}`}>Cancel</Link>
             <button type="submit">Submit</button>
-        </div>
     </form>
-        </>
+        </div>
     )
 } else {
     return "Loading..."
