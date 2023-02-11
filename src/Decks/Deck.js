@@ -73,6 +73,12 @@ if (result) {
 
 return (
     <div>
+        <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item" key="0"><Link to="/">Home</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page" key="1">{deck.name}</li>
+                </ol>
+            </nav>
         <h4>{deck.name}</h4>
         <p>{deck.description}</p>
         <div className="row justify-content-between">

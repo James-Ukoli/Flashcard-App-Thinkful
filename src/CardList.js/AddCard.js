@@ -4,18 +4,17 @@ import { createCard, readDeck } from "../utils/api";
 import CardForm from "./CardForm";
 
 function AddCard () {
-const params = useParams()
+const params = useParams();
+const deckId = params.deckId;
 const [deck, setDeck] = useState([]); // 1/28 empty array for now, but initial value is actually deck data from api call.
-const deckId = params.deckId
 
-    
 const initialFormState = {
-        front: "",
-        back: "",
-        deckId
-    }
-// let formData = initialFormState
+    front: "",
+    back: "",
+    deckId
+}
 const [formData, setFormData] = useState({...initialFormState})
+
 
 const changeHandler = ({target}) => {
 const value = target.value

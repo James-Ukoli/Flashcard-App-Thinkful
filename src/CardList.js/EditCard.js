@@ -61,7 +61,15 @@ function EditCard(){
 
     if (deck) {
         return (
-            <div>
+               <div>
+            <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item" key="0"><Link to="/">Home</Link></li>
+                    <li className="breadcrumb-item" key="1"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page" key="2">Edit Card {cardId}</li>
+                </ol>
+            </nav>
+            <br />
         <h1>Edit Card</h1>
     <form onSubmit={handleSubmit}>
            <CardForm changeHandler={changeHandler} formData={card}/>

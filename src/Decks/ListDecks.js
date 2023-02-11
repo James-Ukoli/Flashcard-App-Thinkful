@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {listDecks, deleteDeck} from "../utils/api/index";
 import { Link } from "react-router-dom";
 
@@ -57,7 +57,7 @@ const deleteHandler = async ({ target }) => {
        return <div key={deck.id}>
         <div className="row justify-content-between">
             <h2>{deck.name}</h2>
-            <p>{deck.cards.length}</p> 
+            <p>{deck.cards.length} cards</p> 
         </div>
         <p>{deck.description}</p>
         <div>

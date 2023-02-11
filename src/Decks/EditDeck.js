@@ -56,6 +56,13 @@ function EditDeck(){
       };
     return (
         <div>
+           <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item" key="0"><Link to="/">Home</Link></li>
+                    <li className="breadcrumb-item" key="1"><Link to={`/decks/${deckId}`}>Deck Name</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page" key="2">Edit Deck</li>
+                </ol>
+            </nav>
         <h1>Edit Deck</h1>
     <form onSubmit={handleSubmit}>
         <div>

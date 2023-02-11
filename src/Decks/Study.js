@@ -4,13 +4,13 @@ import {readDeck} from "../utils/api/index"
 
 
 function Study() {
-const history = useHistory();
-const params = useParams();
-const deckId = params.deckId;
 const [front, setFront] = useState(true);
 const [cardNumber, setCardNumber] = useState(0);
 const [cards, setCards] = useState({});
 const [deck, setDeck] = useState({});
+const history = useHistory();
+const params = useParams();
+const deckId = params.deckId;
 
 useEffect(()=>{
 async function loadData () {
@@ -53,10 +53,25 @@ function nextCard(){
 }
 
 
+function BreadCrumb() {
+    return (
+        <div className="navigation">
+             <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item" key="0"><Link to="/">Home</Link></li>
+                        <li className="breadcrumb-item" key="1"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page" key="2">Study</li>
+                    </ol>
+                </nav>
+        </div>
+    )
+}
+
 if (cards.length > 2){
     console.log(cards[0].front);
     return (
         <div>
+            <BreadCrumb/>
             <h2>Study: {deck.name}</h2>
             <div className="card">
                 <div className="card-body">
@@ -71,7 +86,7 @@ if (cards.length > 2){
 } else {
     return (
         <div>
-            
+            <BreadCrumb/>
             <h2>Study: {deck.name}</h2>
             <div className="card">
                 <div className="card-body">
