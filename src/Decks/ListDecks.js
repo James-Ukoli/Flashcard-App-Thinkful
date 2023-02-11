@@ -34,7 +34,7 @@ const deleteHandler = async ({ target }) => {
           await deleteDeck(value);
           const output = await listDecks();
           setDecks(output);
-         
+         window.location.reload();
         } catch (error) {
           if (error.name === "AbortError") {
             // Ignore `AbortError`

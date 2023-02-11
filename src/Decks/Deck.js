@@ -38,6 +38,7 @@ if (result) {
             await deleteCard(value)
             const data2 = await listCards(deckId)
             setDeck(data2)
+            window.location.reload();
         } catch (error) {
             if (error.name ==="AbortError") {
                 console.log("Aborted")
@@ -58,6 +59,7 @@ if (result) {
     async function deleteData () {
         try {
             await deleteDeck(deckId)
+            window.location.reload();
             history.push("/")
         } catch (error) {
             if (error.name === "AbortError") {
